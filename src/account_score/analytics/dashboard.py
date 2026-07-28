@@ -182,26 +182,27 @@ class DashboardGenerator:
     @staticmethod
     def _build_html_dashboard(dashboard_data: Dict) -> str:
         """Build HTML dashboard."""
-        html = """
+        timestamp = dashboard_data.get('generated_at', 'N/A')
+        html = f"""
         <!DOCTYPE html>
         <html>
         <head>
             <title>PAS Performance Dashboard</title>
             <style>
-                body { font-family: Arial, sans-serif; margin: 20px; }
-                h1 { color: #333; }
-                .metric { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
-                .metric-value { font-size: 24px; font-weight: bold; color: #0066cc; }
-                .metric-label { font-size: 12px; color: #666; }
-                table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-                th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                th { background: #0066cc; color: white; }
+                body {{ font-family: Arial, sans-serif; margin: 20px; }}
+                h1 {{ color: #333; }}
+                .metric {{ background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }}
+                .metric-value {{ font-size: 24px; font-weight: bold; color: #0066cc; }}
+                .metric-label {{ font-size: 12px; color: #666; }}
+                table {{ border-collapse: collapse; width: 100%; margin: 20px 0; }}
+                th, td {{ border: 1px solid #ddd; padding: 8px; text-align: left; }}
+                th {{ background: #0066cc; color: white; }}
             </style>
         </head>
         <body>
             <h1>PAS Performance Dashboard</h1>
             <p>Generated: {timestamp}</p>
-        """.format(timestamp=dashboard_data.get('generated_at', 'N/A'))
+        """
 
         # Add metrics
         if 'score_distribution' in dashboard_data:
