@@ -1,0 +1,17 @@
+{
+  "version": "binning_v20260728",
+  "created_date": "2026-07-28",
+  "created_by": "Account_Score Pipeline",
+  "description": "Initial binning thresholds fitted on baseline portfolio data",
+  "data_version": "DHC_2025",
+  "binning_method": "quantile, equal_width, log_scale, u_shaped, mean_anchored, reciprocal",
+  "n_bins": 30,
+  "total_variables": 23,
+  "file_structure": {
+    "thresholds.json": "Complete binning thresholds for all 23 variables",
+    "metadata.json": "This file - versioning and audit information",
+    "performance.csv": "Score distribution statistics and validation metrics (generated after scoring)"
+  },
+  "notes": "This is the production baseline version. All scored outputs reference this version via symlink.",
+  "active": true
+}

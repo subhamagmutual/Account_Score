@@ -20,3 +20,16 @@ htmlcov/
 .vscode/
 .idea/
 *.swp
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+htmlcov/
+
+# IDE and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
