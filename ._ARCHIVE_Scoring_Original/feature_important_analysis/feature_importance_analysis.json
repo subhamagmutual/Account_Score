@@ -1,0 +1,251 @@
+{
+  "baseline_composite": 5.0,
+  "component_elasticity": {
+    "adequacy": 0.39999999999999153,
+    "capacity": 0.25000000000000355,
+    "appetite": 0.25000000000000355,
+    "environment": 0.09999999999999788
+  },
+  "component_impact_matrix": {
+    "adequacy": {
+      "-50%": -1.0,
+      "-25%": -0.5,
+      "-10%": -0.20000000000000018,
+      "+10%": 0.20000000000000018,
+      "+25%": 0.5,
+      "+50%": 1.0
+    },
+    "capacity": {
+      "-50%": -0.625,
+      "-25%": -0.3125,
+      "-10%": -0.125,
+      "+10%": 0.125,
+      "+25%": 0.3125,
+      "+50%": 0.625
+    },
+    "appetite": {
+      "-50%": -0.625,
+      "-25%": -0.3125,
+      "-10%": -0.125,
+      "+10%": 0.125,
+      "+25%": 0.3125,
+      "+50%": 0.625
+    },
+    "environment": {
+      "-50%": -0.25,
+      "-25%": -0.125,
+      "-10%": -0.04999999999999982,
+      "+10%": 0.04999999999999982,
+      "+25%": 0.125,
+      "+50%": 0.25
+    }
+  },
+  "variable_importance": {
+    "total_loss_cost": {
+      "component": "adequacy",
+      "variable_weight": 0.2,
+      "component_weight": 0.4,
+      "direct_effect": 0.08000000000000002,
+      "rank": 1
+    },
+    "indemnity_loss_cost": {
+      "component": "adequacy",
+      "variable_weight": 0.1,
+      "component_weight": 0.4,
+      "direct_effect": 0.04000000000000001,
+      "rank": 4
+    },
+    "expense_loss_cost": {
+      "component": "adequacy",
+      "variable_weight": 0.05,
+      "component_weight": 0.4,
+      "direct_effect": 0.020000000000000004,
+      "rank": 14
+    },
+    "total_frequency": {
+      "component": "adequacy",
+      "variable_weight": 0.1,
+      "component_weight": 0.4,
+      "direct_effect": 0.04000000000000001,
+      "rank": 5
+    },
+    "indemnity_frequency": {
+      "component": "adequacy",
+      "variable_weight": 0.05,
+      "component_weight": 0.4,
+      "direct_effect": 0.020000000000000004,
+      "rank": 15
+    },
+    "total_severity": {
+      "component": "adequacy",
+      "variable_weight": 0.05,
+      "component_weight": 0.4,
+      "direct_effect": 0.020000000000000004,
+      "rank": 16
+    },
+    "actual_loss_ratio": {
+      "component": "adequacy",
+      "variable_weight": 0.1,
+      "component_weight": 0.4,
+      "direct_effect": 0.04000000000000001,
+      "rank": 6
+    },
+    "loss_free_years": {
+      "component": "adequacy",
+      "variable_weight": 0.1,
+      "component_weight": 0.4,
+      "direct_effect": 0.04000000000000001,
+      "rank": 7
+    },
+    "limits_to_premium": {
+      "component": "adequacy",
+      "variable_weight": 0.1,
+      "component_weight": 0.4,
+      "direct_effect": 0.04000000000000001,
+      "rank": 8
+    },
+    "per_occurrence_limit": {
+      "component": "capacity",
+      "variable_weight": 0.2,
+      "component_weight": 0.25,
+      "direct_effect": 0.05,
+      "rank": 3
+    },
+    "aggregate_limit": {
+      "component": "capacity",
+      "variable_weight": 0.1,
+      "component_weight": 0.25,
+      "direct_effect": 0.025,
+      "rank": 10
+    },
+    "risk_count": {
+      "component": "capacity",
+      "variable_weight": 0.1,
+      "component_weight": 0.25,
+      "direct_effect": 0.025,
+      "rank": 11
+    },
+    "specialty_risk_tier": {
+      "component": "appetite",
+      "variable_weight": 0.25,
+      "component_weight": 0.25,
+      "direct_effect": 0.0625,
+      "rank": 2
+    },
+    "state_venue_risk": {
+      "component": "appetite",
+      "variable_weight": 0.15,
+      "component_weight": 0.25,
+      "direct_effect": 0.0375,
+      "rank": 9
+    },
+    "years_since_graduation": {
+      "component": "appetite",
+      "variable_weight": 0.1,
+      "component_weight": 0.25,
+      "direct_effect": 0.025,
+      "rank": 12
+    },
+    "rvu_ratio": {
+      "component": "appetite",
+      "variable_weight": 0.1,
+      "component_weight": 0.25,
+      "direct_effect": 0.025,
+      "rank": 13
+    },
+    "tenure_with_carrier": {
+      "component": "appetite",
+      "variable_weight": 0.05,
+      "component_weight": 0.25,
+      "direct_effect": 0.0125,
+      "rank": 17
+    },
+    "hospital_rating": {
+      "component": "appetite",
+      "variable_weight": 0.05,
+      "component_weight": 0.25,
+      "direct_effect": 0.0125,
+      "rank": 18
+    },
+    "practice_size": {
+      "component": "appetite",
+      "variable_weight": 0.05,
+      "component_weight": 0.25,
+      "direct_effect": 0.0125,
+      "rank": 19
+    },
+    "income_inequality": {
+      "component": "environment",
+      "variable_weight": 0.05,
+      "component_weight": 0.1,
+      "direct_effect": 0.005000000000000001,
+      "rank": 20
+    },
+    "population_density": {
+      "component": "environment",
+      "variable_weight": 0.05,
+      "component_weight": 0.1,
+      "direct_effect": 0.005000000000000001,
+      "rank": 21
+    },
+    "violent_crime_rate": {
+      "component": "environment",
+      "variable_weight": 0.03,
+      "component_weight": 0.1,
+      "direct_effect": 0.003,
+      "rank": 22
+    },
+    "pct_uninsured": {
+      "component": "environment",
+      "variable_weight": 0.02,
+      "component_weight": 0.1,
+      "direct_effect": 0.002,
+      "rank": 23
+    }
+  },
+  "dead_weight": {
+    "adequacy": [],
+    "capacity": [],
+    "appetite": [],
+    "environment": [
+      "income_inequality",
+      "population_density",
+      "violent_crime_rate",
+      "pct_uninsured"
+    ]
+  },
+  "component_analysis": {
+    "adequacy": {
+      "composite_weight": 0.4,
+      "variable_count": 9.0,
+      "avg_variable_weight": 0.09444444444444446,
+      "total_variable_weight": 0.8500000000000001,
+      "max_variable_weight": 0.2,
+      "min_variable_weight": 0.05
+    },
+    "capacity": {
+      "composite_weight": 0.25,
+      "variable_count": 3.0,
+      "avg_variable_weight": 0.13333333333333333,
+      "total_variable_weight": 0.4,
+      "max_variable_weight": 0.2,
+      "min_variable_weight": 0.1
+    },
+    "appetite": {
+      "composite_weight": 0.25,
+      "variable_count": 7.0,
+      "avg_variable_weight": 0.10714285714285716,
+      "total_variable_weight": 0.75,
+      "max_variable_weight": 0.25,
+      "min_variable_weight": 0.05
+    },
+    "environment": {
+      "composite_weight": 0.1,
+      "variable_count": 4.0,
+      "avg_variable_weight": 0.0375,
+      "total_variable_weight": 0.15,
+      "max_variable_weight": 0.05,
+      "min_variable_weight": 0.02
+    }
+  }
+}
