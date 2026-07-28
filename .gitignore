@@ -1,0 +1,22 @@
+# Large data files - use Git LFS
+*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+*.egg-info/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Parent directories
+../PSL_Modeling/
+../PSL_Modeling\ -\ Copy/
+../old_PSL_2025/
+
+# IDE
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,139 @@
+{
+    "composite_weights": {
+        "adequacy": 0.40,
+        "capacity": 0.25,
+        "appetite": 0.25,
+        "environment": 0.10
+    },
+    "adequacy_sub_scores": {
+        "total_loss_cost": {
+            "weight": 0.20,
+            "target_variable": "ULT_Total_LOSS_COST_PER_BCE",
+            "numerator": "AMT_GROSS_RPTD_TOTAL_TRENDED",
+            "denominator": "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED",
+            "apply_credibility": true
+        },
+        "indemnity_loss_cost": {
+            "weight": 0.10,
+            "target_variable": "ULT_Indemnity_LOSS_COST_PER_BCE",
+            "numerator": "AMT_GROSS_RPTD_IND_TRENDED",
+            "denominator": "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED",
+            "apply_credibility": true
+        },
+        "expense_loss_cost": {
+            "weight": 0.05,
+            "target_variable": "ULT_Expense_LOSS_COST_PER_BCE",
+            "numerator": "AMT_GROSS_RPTD_EXP_TRENDED",
+            "denominator": "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED",
+            "apply_credibility": true
+        },
+        "total_frequency": {
+            "weight": 0.10,
+            "target_variable": "ULT_Total_FREQUENCY_PER_FTE",
+            "numerator": "CNT_GROSS_RPTD_TOTAL_GT_0",
+            "denominator": "FTE_EXPOSURE_CNT_GROSS_RPTD_TOTAL_GT_0_TRENDED_BURNED",
+            "apply_credibility": true
+        },
+        "indemnity_frequency": {
+            "weight": 0.05,
+            "target_variable": "ULT_Indemnity_FREQUENCY_PER_FTE",
+            "numerator": "CNT_GROSS_RPTD_IND_GT_0",
+            "denominator": "FTE_EXPOSURE_CNT_GROSS_RPTD_IND_GT_0_TRENDED_BURNED",
+            "apply_credibility": true
+        },
+        "total_severity": {
+            "weight": 0.05,
+            "target_variable": "ULT_Total_SEVERITY",
+            "numerator": "ADJ_LOSS_FOR_SEVERITY",
+            "denominator": "CNT_GROSS_RPTD_TOTAL_GT_0",
+            "apply_credibility": true,
+            "only_when_claims_exist": true
+        },
+        "actual_loss_ratio": {
+            "weight": 0.10,
+            "target_variable": "ULT_ACTUAL_LOSS_RATIO_BURNED",
+            "numerator": "AMT_GROSS_RPTD_TOTAL_TRENDED",
+            "denominator": "WRTN_PREM_AMT_ITD_BURNED_CLASS_OL",
+            "apply_credibility": true
+        },
+        "loss_free_years": {
+            "weight": 0.10,
+            "source_column": "CV_LOSS_FREE_YEARS",
+            "apply_credibility": true,
+            "invert_score": true
+        },
+        "limits_to_premium": {
+            "weight": 0.10,
+            "numerator": "TOP_PER_M",
+            "numerator_multiplier": 1000000,
+            "denominator": "WRTN_PREM_AMT_ITD_BURNED",
+            "apply_credibility": false
+        }
+    },
+    "capacity_sub_scores": {
+        "per_occurrence_limit": {
+            "weight": 0.20,
+            "source_column": "TOP_PER_M"
+        },
+        "aggregate_limit": {
+            "weight": 0.10,
+            "source_column": "TOP_AGG_M"
+        },
+        "risk_count": {
+            "weight": 0.10,
+            "source_column": "RISK_COUNT"
+        }
+    },
+    "appetite_sub_scores": {
+        "specialty_risk_tier": {
+            "weight": 0.25,
+            "source_column": "OL_RISK_SPECIALTY_DESC",
+            "lookup_config": "specialty_tiers.json"
+        },
+        "state_venue_risk": {
+            "weight": 0.15,
+            "source_column": "ST",
+            "lookup_config": "state_tiers.json"
+        },
+        "years_since_graduation": {
+            "weight": 0.10,
+            "source_column": "YEARS_SINCE_GRAD_IMPUTED"
+        },
+        "rvu_ratio": {
+            "weight": 0.10,
+            "source_column": "RVU_WORK_TOTAL_RATIO_SPEC_OL"
+        },
+        "tenure_with_carrier": {
+            "weight": 0.05,
+            "source_column": "CV_YEARS_WITH_MAG",
+            "invert_score": true
+        },
+        "hospital_rating": {
+            "weight": 0.05,
+            "source_column": "HOSP_HOSPITALCOMPARE_OVERALLRATING",
+            "invert_score": true
+        },
+        "practice_size": {
+            "weight": 0.05,
+            "source_column": "WITH_WHOM_LOCATION_DISTINCT_NPI"
+        }
+    },
+    "environment_sub_scores": {
+        "income_inequality": {
+            "weight": 0.05,
+            "source_column": "INCOME_RATIO"
+        },
+        "population_density": {
+            "weight": 0.05,
+            "source_column": "POP_DENSITY_SQ_MILES"
+        },
+        "violent_crime_rate": {
+            "weight": 0.03,
+            "source_column": "VIOLENT_CRIME_RATE_PER_100K"
+        },
+        "pct_uninsured": {
+            "weight": 0.02,
+            "source_column": "PCT_UNINSURED"
+        }
+    }
+}

@@ -1,0 +1,75 @@
+{
+    "data": {
+        "input_path": "C:/Box/Box/BOX Subhashree Singh/Business/Modeling/data/regression/input/2025_refresh/modeling_data/2025_mr_dhc_merged_features.csv",
+        "output_dir": "C:/Box/Box/BOX Subhashree Singh/Business/PAS",
+        "variable_definitions_path": "C:/Box/Box/BOX Subhashree Singh/Business/Modeling/data/regression/input/2025_refresh/reference/2025_mr_dhc_merged_features_variable_definitions.xlsx"
+    },
+    "filters": {
+        "min_written_premium": 0,
+        "min_bce": 0,
+        "coverage_year_min": 2017,
+        "coverage_year_max": 2023,
+        "policy_year_min": 2017,
+        "premium_col": "WRTN_PREM_AMT_ITD_BURNED_CLASS_OL",
+        "bce_col": "BCE_ST",
+        "coverage_date_col": "COVEFF_DATE",
+        "policy_date_col": "POLEFF_DATE"
+    },
+    "scoring": {
+        "sub_score_min": 1,
+        "sub_score_max": 30,
+        "composite_min": 1,
+        "composite_max": 10,
+        "portfolio_avg_score": 5,
+        "missing_value_sentinel": -1
+    },
+    "credibility": {
+        "full_credibility_premium": 50000,
+        "complement_score": 5,
+        "apply_to": [
+            "total_loss_cost",
+            "indemnity_loss_cost",
+            "expense_loss_cost",
+            "total_frequency",
+            "indemnity_frequency",
+            "total_severity",
+            "actual_loss_ratio"
+        ]
+    },
+    "binning": {
+        "default_method": "quantile",
+        "n_bins": 30,
+        "methods_by_variable": {
+            "total_loss_cost": "equal_width",
+            "indemnity_loss_cost": "equal_width",
+            "expense_loss_cost": "equal_width",
+            "total_frequency": "quantile",
+            "indemnity_frequency": "quantile",
+            "total_severity": "log_scale",
+            "actual_loss_ratio": "equal_width",
+            "loss_free_years": "quantile",
+            "limits_to_premium": "log_scale",
+            "per_occurrence_limit": "categorical",
+            "aggregate_limit": "categorical",
+            "risk_count": "quantile",
+            "specialty_risk_tier": "categorical",
+            "state_venue_risk": "categorical",
+            "years_since_graduation": "u_shaped",
+            "rvu_ratio": "quantile",
+            "tenure_with_carrier": "quantile",
+            "hospital_rating": "categorical",
+            "practice_size": "log_scale",
+            "income_inequality": "equal_width",
+            "population_density": "quantile",
+            "violent_crime_rate": "quantile",
+            "pct_uninsured": "equal_width"
+        }
+    },
+    "identifiers": {
+        "physician_id": "NPI",
+        "policy_number": "POL_NUM_ID",
+        "coverage_year": "COVEFF_DATE",
+        "specialty": "OL_RISK_SPECIALTY_DESC",
+        "state": "ST"
+    }
+}

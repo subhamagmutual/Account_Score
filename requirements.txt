@@ -1,0 +1,18 @@
+# Production Dependencies - PINNED VERSIONS
+# Ensure deterministic builds across dev, test, and production
+
+# Data Processing & Analysis
+pandas==2.0.3
+numpy==1.24.2
+
+# Excel I/O
+openpyxl==3.10.0
+
+# Data Validation
+pydantic==2.4.2
+
+# Presentation Generation
+python-pptx==0.6.21
+
+# Visualization (optional, for deployment tables)
+matplotlib==3.8.0

@@ -1,0 +1,65 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black flake8 isort mypy
+
+    - name: Run Black formatter check
+      run: |
+        black --check src/ tests/ run_pipeline.py scripts/*.py || echo "Black formatting issues found"
+      continue-on-error: true
+
+    - name: Run isort import check
+      run: |
+        isort --check-only src/ tests/ run_pipeline.py scripts/*.py || echo "Import sort issues found"
+      continue-on-error: true
+
+    - name: Run Flake8 linter
+      run: |
+        flake8 src/ tests/ run_pipeline.py --max-line-length=100 --extend-ignore=E203,W503
+      continue-on-error: true
+
+    - name: Run mypy type checker
+      run: |
+        mypy src/account_score/ --ignore-missing-imports
+      continue-on-error: true
+
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit
+
+    - name: Run Bandit security check
+      run: |
+        bandit -r src/ -ll
+      continue-on-error: true

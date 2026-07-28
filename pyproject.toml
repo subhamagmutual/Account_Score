@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "account-score"
+version = "1.0.0"
+description = "Physician Account Score (PAS) - Physician MPL Risk Scoring Pipeline"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Proprietary"}
+authors = [
+    {name = "Subhashree Singh", email = "ssingh@magmutual.com"}
+]
+keywords = ["risk-scoring", "underwriting", "physician-mpl", "healthcare"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Healthcare Industry",
+    "License :: Other/Proprietary",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Healthcare :: Business",
+]
+
+dependencies = [
+    "pandas==2.0.3",
+    "numpy==1.24.2",
+    "openpyxl==3.10.0",
+    "pydantic==2.4.2",
+    "python-pptx==0.6.21",
+    "matplotlib==3.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==7.4.0",
+    "pytest-cov==4.1.0",
+    "pytest-mock==3.11.1",
+    "black==23.7.0",
+    "flake8==6.0.0",
+    "isort==5.12.0",
+    "mypy==1.4.1",
+    "sphinx==7.1.1",
+    "sphinx-rtd-theme==1.3.0",
+    "ipython==8.14.0",
+    "jupyter==1.0.0",
+    "notebook==6.5.4",
+]
+
+[project.scripts]
+pas-pipeline = "account_score.pipeline:main"
+
+[project.urls]
+Homepage = "https://github.com/magmutual/account-score"
+Repository = "https://github.com/magmutual/account-score.git"
+"Bug Tracker" = "https://github.com/magmutual/account-score/issues"
+
+[tool.setuptools]
+packages = ["account_score"]
+
+[tool.setuptools.package-data]
+account_score = ["config/*.json"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --cov=account_score --cov-report=html --cov-report=term-missing"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
