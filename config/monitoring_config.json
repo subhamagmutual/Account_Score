@@ -1,0 +1,60 @@
+{
+  "monitoring": {
+    "enabled": true,
+    "alert_threshold": 0.05,
+    "comment": "Alert if any metric changes by >5% from baseline"
+  },
+  "psi": {
+    "alert_threshold": 0.25,
+    "n_bins": 10,
+    "comment": "Alert if PSI > 0.25 (significant population drift)"
+  },
+  "data_quality": {
+    "strict_mode": false,
+    "max_null_percentage": 5.0,
+    "comment": "Alert if any column has >5% null values",
+    "required_columns": [
+      "NPI",
+      "composite_score",
+      "adequacy_score",
+      "capacity_score",
+      "appetite_score",
+      "environment_score"
+    ],
+    "numeric_columns": [
+      "composite_score",
+      "adequacy_score",
+      "capacity_score",
+      "appetite_score",
+      "environment_score"
+    ]
+  },
+  "score_validation": {
+    "valid_range": [1.0, 10.0],
+    "comment": "All scores must be between 1 and 10",
+    "max_null_percentage": 5.0,
+    "alert_on_constant": true
+  },
+  "anomalies": {
+    "zscore_threshold": 3.0,
+    "comment": "Flag values >3 sigma from mean as outliers",
+    "segment_zscore_threshold": 2.0,
+    "comment_segment": "Flag segment means >2 sigma from overall mean"
+  },
+  "alerts": {
+    "channels": ["email", "slack"],
+    "email_recipients": ["ops@example.com"],
+    "slack_webhook": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL",
+    "severity_levels": {
+      "INFO": "Log only, no alert",
+      "WARNING": "Alert the team",
+      "BLOCKER": "Block deployment, alert immediately"
+    }
+  },
+  "reporting": {
+    "format": "json",
+    "include_charts": true,
+    "output_directory": "data/output/monitoring/",
+    "retention_days": 90
+  }
+}
