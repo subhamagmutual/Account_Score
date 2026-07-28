@@ -117,16 +117,22 @@ def load_modeling_data(
 def apply_data_filters(df: pd.DataFrame, config: Dict[str, Any], silent: bool = False) -> pd.DataFrame:
     """Apply standard data quality filters from config."""
     filters = config.get("pipeline_params", {}).get("filters", {})
+    identifiers = config.get("pipeline_params", {}).get("identifiers", {})
 
     initial_count = len(df)
 
+    # NPI validation filter (not null and not 0)
+    npi_col = identifiers.get("npi", "NPI")
+    if npi_col in df.columns:
+        df = df[(df[npi_col].notna()) & (df[npi_col] != 0)]
+
     # Premium filter
-    prem_col = filters.get("premium_col", "WRTN_PREM_AMT_ITD_BURNED_CLASS_OL")
+    prem_col = filters.get("premium_col", "WRTN_PREM_AMT_ITD_BURNED")
     if prem_col in df.columns:
         df = df[df[prem_col] > filters.get("min_written_premium", 0)]
 
     # BCE filter
-    bce_col = filters.get("bce_col", "BCE_ST")
+    bce_col = filters.get("bce_col", "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED")
     if bce_col in df.columns:
         df = df[df[bce_col] > filters.get("min_bce", 0)]
 
@@ -135,7 +141,7 @@ def apply_data_filters(df: pd.DataFrame, config: Dict[str, Any], silent: bool = 
     if cov_col in df.columns:
         df[cov_col] = pd.to_datetime(df[cov_col], errors="coerce")
         year_min = filters.get("coverage_year_min", 2017)
-        year_max = filters.get("coverage_year_max", 2023)
+        year_max = filters.get("coverage_year_max", 2024)
         df = df[
             (df[cov_col].dt.year >= year_min) &
             (df[cov_col].dt.year <= year_max)
