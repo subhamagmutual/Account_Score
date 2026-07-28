@@ -1,139 +1,100 @@
 {
+    "version": "1.0.0",
+    "created_date": "2026-07-28",
+    "description": "PAS Scoring Weights - Step 1 Implementation",
     "composite_weights": {
-        "adequacy": 0.40,
-        "capacity": 0.25,
-        "appetite": 0.25,
-        "environment": 0.10
-    },
-    "adequacy_sub_scores": {
-        "total_loss_cost": {
-            "weight": 0.20,
-            "target_variable": "ULT_Total_LOSS_COST_PER_BCE",
-            "numerator": "AMT_GROSS_RPTD_TOTAL_TRENDED",
-            "denominator": "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED",
-            "apply_credibility": true
+        "adequacy": {
+            "weight": 0.40,
+            "description": "Data quality, claims history, board certification, litigation history"
         },
-        "indemnity_loss_cost": {
-            "weight": 0.10,
-            "target_variable": "ULT_Indemnity_LOSS_COST_PER_BCE",
-            "numerator": "AMT_GROSS_RPTD_IND_TRENDED",
-            "denominator": "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED",
-            "apply_credibility": true
-        },
-        "expense_loss_cost": {
-            "weight": 0.05,
-            "target_variable": "ULT_Expense_LOSS_COST_PER_BCE",
-            "numerator": "AMT_GROSS_RPTD_EXP_TRENDED",
-            "denominator": "BCE_ST_GROSS_RPTD_TOTAL_TRENDED_BURNED",
-            "apply_credibility": true
-        },
-        "total_frequency": {
-            "weight": 0.10,
-            "target_variable": "ULT_Total_FREQUENCY_PER_FTE",
-            "numerator": "CNT_GROSS_RPTD_TOTAL_GT_0",
-            "denominator": "FTE_EXPOSURE_CNT_GROSS_RPTD_TOTAL_GT_0_TRENDED_BURNED",
-            "apply_credibility": true
-        },
-        "indemnity_frequency": {
-            "weight": 0.05,
-            "target_variable": "ULT_Indemnity_FREQUENCY_PER_FTE",
-            "numerator": "CNT_GROSS_RPTD_IND_GT_0",
-            "denominator": "FTE_EXPOSURE_CNT_GROSS_RPTD_IND_GT_0_TRENDED_BURNED",
-            "apply_credibility": true
-        },
-        "total_severity": {
-            "weight": 0.05,
-            "target_variable": "ULT_Total_SEVERITY",
-            "numerator": "ADJ_LOSS_FOR_SEVERITY",
-            "denominator": "CNT_GROSS_RPTD_TOTAL_GT_0",
-            "apply_credibility": true,
-            "only_when_claims_exist": true
-        },
-        "actual_loss_ratio": {
-            "weight": 0.10,
-            "target_variable": "ULT_ACTUAL_LOSS_RATIO_BURNED",
-            "numerator": "AMT_GROSS_RPTD_TOTAL_TRENDED",
-            "denominator": "WRTN_PREM_AMT_ITD_BURNED_CLASS_OL",
-            "apply_credibility": true
-        },
-        "loss_free_years": {
-            "weight": 0.10,
-            "source_column": "CV_LOSS_FREE_YEARS",
-            "apply_credibility": true,
-            "invert_score": true
-        },
-        "limits_to_premium": {
-            "weight": 0.10,
-            "numerator": "TOP_PER_M",
-            "numerator_multiplier": 1000000,
-            "denominator": "WRTN_PREM_AMT_ITD_BURNED",
-            "apply_credibility": false
-        }
-    },
-    "capacity_sub_scores": {
-        "per_occurrence_limit": {
-            "weight": 0.20,
-            "source_column": "TOP_PER_M"
-        },
-        "aggregate_limit": {
-            "weight": 0.10,
-            "source_column": "TOP_AGG_M"
-        },
-        "risk_count": {
-            "weight": 0.10,
-            "source_column": "RISK_COUNT"
-        }
-    },
-    "appetite_sub_scores": {
-        "specialty_risk_tier": {
+        "capacity": {
             "weight": 0.25,
-            "source_column": "OL_RISK_SPECIALTY_DESC",
-            "lookup_config": "specialty_tiers.json"
+            "description": "Experience, specialty volume, education, facility quality"
         },
-        "state_venue_risk": {
-            "weight": 0.15,
-            "source_column": "ST",
-            "lookup_config": "state_tiers.json"
+        "appetite": {
+            "weight": 0.25,
+            "description": "Specialty risk, procedure complexity, patient demographics, peer comparison"
         },
-        "years_since_graduation": {
+        "environment": {
             "weight": 0.10,
-            "source_column": "YEARS_SINCE_GRAD_IMPUTED"
-        },
-        "rvu_ratio": {
-            "weight": 0.10,
-            "source_column": "RVU_WORK_TOTAL_RATIO_SPEC_OL"
-        },
-        "tenure_with_carrier": {
-            "weight": 0.05,
-            "source_column": "CV_YEARS_WITH_MAG",
-            "invert_score": true
-        },
-        "hospital_rating": {
-            "weight": 0.05,
-            "source_column": "HOSP_HOSPITALCOMPARE_OVERALLRATING",
-            "invert_score": true
-        },
-        "practice_size": {
-            "weight": 0.05,
-            "source_column": "WITH_WHOM_LOCATION_DISTINCT_NPI"
+            "description": "Geographic factors, compliance, screening, practice environment"
         }
     },
-    "environment_sub_scores": {
-        "income_inequality": {
-            "weight": 0.05,
-            "source_column": "INCOME_RATIO"
-        },
-        "population_density": {
-            "weight": 0.05,
-            "source_column": "POP_DENSITY_SQ_MILES"
-        },
-        "violent_crime_rate": {
-            "weight": 0.03,
-            "source_column": "VIOLENT_CRIME_RATE_PER_100K"
-        },
-        "pct_uninsured": {
-            "weight": 0.02,
-            "source_column": "PCT_UNINSURED"
-        }
-    }
+    "adequacy_kpis": [
+        "kpi_board_certified",
+        "kpi_litigation_history",
+        "kpi_compliance_score",
+        "kpi_annual_claims_rate",
+        "kpi_avg_claim_amount",
+        "kpi_loss_frequency",
+        "kpi_licensure_status"
+    ],
+    "capacity_kpis": [
+        "kpi_years_in_specialty",
+        "kpi_specialty_volume",
+        "kpi_education_score",
+        "kpi_facility_quality",
+        "kpi_experience_adjustment",
+        "kpi_state_volume"
+    ],
+    "appetite_kpis": [
+        "kpi_procedure_complexity",
+        "kpi_patient_risk",
+        "kpi_peer_volume_ratio",
+        "kpi_specialty_loss_ratio",
+        "kpi_complication_rate",
+        "kpi_geographic_concentration"
+    ],
+    "environment_kpis": [
+        "kpi_state_risk_adjustment",
+        "kpi_additional_risk",
+        "kpi_screening_score",
+        "kpi_loss_severity"
+    ],
+    "all_kpi_variables": {
+        "count": 23,
+        "list": [
+            "kpi_specialty_volume",
+            "kpi_state_volume",
+            "kpi_years_in_specialty",
+            "kpi_annual_claims_rate",
+            "kpi_avg_claim_amount",
+            "kpi_loss_frequency",
+            "kpi_loss_severity",
+            "kpi_board_certified",
+            "kpi_litigation_history",
+            "kpi_geographic_concentration",
+            "kpi_procedure_complexity",
+            "kpi_patient_risk",
+            "kpi_complication_rate",
+            "kpi_peer_volume_ratio",
+            "kpi_specialty_loss_ratio",
+            "kpi_state_risk_adjustment",
+            "kpi_experience_adjustment",
+            "kpi_licensure_status",
+            "kpi_education_score",
+            "kpi_facility_quality",
+            "kpi_compliance_score",
+            "kpi_screening_score",
+            "kpi_additional_risk"
+        ]
+    },
+    "score_ranges": {
+        "component_min": 1.0,
+        "component_max": 10.0,
+        "composite_min": 1.0,
+        "composite_max": 10.0,
+        "description": "All scores are scaled to 1-10 range"
+    },
+    "binning": {
+        "method": "equal_frequency",
+        "n_bins": 5,
+        "description": "Quintile binning (20% per bin)"
+    },
+    "credibility": {
+        "apply_credibility": true,
+        "credibility_type": "data_completeness",
+        "description": "Apply z-score adjustment based on data quality"
+    },
+    "notes": "Update component weights if validation shows different component importance. Weights must sum to 1.0"
 }

@@ -1,60 +1,163 @@
 {
+  "version": "1.0.0",
+  "created_date": "2026-07-28",
+  "description": "PAS Monitoring Configuration - Step 3 Implementation",
   "monitoring": {
     "enabled": true,
     "alert_threshold": 0.05,
-    "comment": "Alert if any metric changes by >5% from baseline"
+    "description": "Alert if any metric changes by >5% from baseline",
+    "monitoring_frequency": "daily"
   },
-  "psi": {
+  "population_stability_index": {
+    "enabled": true,
     "alert_threshold": 0.25,
-    "n_bins": 10,
-    "comment": "Alert if PSI > 0.25 (significant population drift)"
+    "warning_threshold": 0.10,
+    "n_bins": 5,
+    "description": "PSI > 0.25 = significant drift, PSI 0.10-0.25 = warning, PSI < 0.10 = no change",
+    "use_case": "Detect drift when moving from MagMutual baseline to DHC population"
   },
   "data_quality": {
+    "enabled": true,
     "strict_mode": false,
     "max_null_percentage": 5.0,
-    "comment": "Alert if any column has >5% null values",
+    "description": "Alert if any column has >5% null values",
     "required_columns": [
-      "NPI",
+      "physician_id",
+      "npi",
+      "specialty",
+      "state",
       "composite_score",
-      "adequacy_score",
-      "capacity_score",
-      "appetite_score",
-      "environment_score"
+      "score_adequacy",
+      "score_capacity",
+      "score_appetite",
+      "score_environment"
     ],
     "numeric_columns": [
       "composite_score",
-      "adequacy_score",
-      "capacity_score",
-      "appetite_score",
-      "environment_score"
+      "score_adequacy",
+      "score_capacity",
+      "score_appetite",
+      "score_environment"
+    ],
+    "checks": [
+      "required_columns",
+      "data_types",
+      "null_values",
+      "duplicates",
+      "sentinel_values"
     ]
   },
   "score_validation": {
+    "enabled": true,
     "valid_range": [1.0, 10.0],
-    "comment": "All scores must be between 1 and 10",
+    "description": "All scores must be between 1 and 10",
     "max_null_percentage": 5.0,
-    "alert_on_constant": true
+    "alert_on_constant": true,
+    "min_unique_values": 5,
+    "checks": [
+      "score_range",
+      "null_values",
+      "constant_values",
+      "distribution_shape"
+    ]
+  },
+  "distribution_monitoring": {
+    "enabled": true,
+    "metrics": [
+      "mean",
+      "median",
+      "std",
+      "gini",
+      "percentiles"
+    ],
+    "percentiles": [10, 25, 50, 75, 90],
+    "alert_on_shift": true,
+    "shift_threshold_pct": 5.0,
+    "description": "Track score distribution and alert on >5% shift from baseline"
   },
   "anomalies": {
-    "zscore_threshold": 3.0,
-    "comment": "Flag values >3 sigma from mean as outliers",
-    "segment_zscore_threshold": 2.0,
-    "comment_segment": "Flag segment means >2 sigma from overall mean"
+    "enabled": true,
+    "outlier_detection": {
+      "enabled": true,
+      "zscore_threshold": 3.0,
+      "description": "Flag values >3 sigma from mean as outliers"
+    },
+    "distribution_anomalies": {
+      "enabled": true,
+      "description": "Detect unusual distributions (skewness, bimodality)"
+    },
+    "segment_anomalies": {
+      "enabled": true,
+      "zscore_threshold": 2.0,
+      "description": "Flag segment means >2 sigma from overall mean",
+      "segments": ["specialty", "state"]
+    }
   },
   "alerts": {
     "channels": ["email", "slack"],
-    "email_recipients": ["ops@example.com"],
+    "email_recipients": ["ssingh@magmutual.com"],
     "slack_webhook": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL",
     "severity_levels": {
-      "INFO": "Log only, no alert",
-      "WARNING": "Alert the team",
-      "BLOCKER": "Block deployment, alert immediately"
+      "INFO": "Log only, no action",
+      "WARNING": "Alert the team, monitor closely",
+      "BLOCKER": "Block deployment, alert immediately, escalate"
+    },
+    "alert_rules": [
+      {
+        "condition": "PSI > 0.25",
+        "severity": "BLOCKER",
+        "action": "Block deployment, investigate drift"
+      },
+      {
+        "condition": "Distribution shift > 5%",
+        "severity": "WARNING",
+        "action": "Alert team, review distribution"
+      },
+      {
+        "condition": "Null rate > 5%",
+        "severity": "BLOCKER",
+        "action": "Block deployment, check data source"
+      },
+      {
+        "condition": "Score outside range [1, 10]",
+        "severity": "BLOCKER",
+        "action": "Block deployment, fix scoring logic"
+      }
+    ]
+  },
+  "deployment_gates": {
+    "enabled": true,
+    "gates": [
+      "input_data_validation",
+      "output_score_validation",
+      "distribution_shift_check",
+      "psi_check",
+      "diagnostics"
+    ],
+    "exit_codes": {
+      "0": "All gates passed - safe to deploy",
+      "3": "BLOCKER found - deployment blocked"
     }
   },
   "reporting": {
+    "enabled": true,
     "format": "json",
+    "formats": ["json", "html", "csv"],
     "include_charts": true,
-    "output_directory": "data/output/monitoring/",
-    "retention_days": 90
+    "output_directory": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data/monitoring/",
+    "retention_days": 90,
+    "report_types": [
+      "score_distribution",
+      "psi_analysis",
+      "data_quality",
+      "anomalies",
+      "alerts"
+    ]
+  },
+  "baselines": {
+    "baseline_file": "config/monitoring_baseline.json",
+    "baseline_date": "2026-07-28",
+    "baseline_source": "MagMutual physicians - development cohort",
+    "baseline_records": 3165000
   }
 }

@@ -1,89 +1,142 @@
 {
+  "metadata": {
+    "baseline_date": "2026-07-28",
+    "baseline_source": "MagMutual physicians - development cohort (Step 1)",
+    "baseline_records": 500,
+    "baseline_description": "Initial scoring baseline from MagMutual limited physician dataset",
+    "scoring_version": "1.0.0",
+    "weights": {
+      "adequacy": 0.40,
+      "capacity": 0.25,
+      "appetite": 0.25,
+      "environment": 0.10
+    },
+    "notes": "Update with each major rescoring event. Use PSI to detect drift when applying to new populations.",
+    "update_instructions": "Run Step 1 pipeline on new data, extract statistics, update this file, compare PSI to these baselines"
+  },
   "composite_score": {
-    "mean": 5.2,
-    "median": 5.0,
-    "std": 1.8,
+    "mean": 5.5,
+    "median": 5.5,
+    "std": 1.5,
     "min": 1.0,
     "max": 10.0,
-    "p25": 4.0,
-    "p50": 5.0,
+    "p10": 3.0,
+    "p25": 4.5,
+    "p50": 5.5,
     "p75": 6.5,
-    "p90": 8.2,
-    "p95": 9.1,
-    "gini": 0.18,
-    "count": 3165000,
-    "null_count": 35000,
-    "comment": "Baseline from initial scoring run - 3.165M physicians"
+    "p90": 7.5,
+    "p95": 8.5,
+    "gini": 0.20,
+    "spearman_correlation": 0.35,
+    "count": 500,
+    "null_count": 0,
+    "null_pct": 0.0,
+    "description": "Overall composite score (1-10 scale)",
+    "expected_distribution": "Normal-like, centered around 5.5"
   },
-  "adequacy_score": {
-    "mean": 5.1,
-    "median": 5.0,
-    "std": 1.9,
-    "min": 1.0,
-    "max": 10.0,
-    "p25": 3.5,
-    "p50": 5.0,
-    "p75": 6.5,
-    "p90": 8.0,
-    "p95": 9.0,
-    "gini": 0.17,
-    "count": 3165000,
-    "null_count": 30000,
-    "comment": "Adequacy component score"
-  },
-  "capacity_score": {
-    "mean": 5.3,
-    "median": 5.0,
-    "std": 1.7,
-    "min": 1.0,
-    "max": 10.0,
-    "p25": 4.0,
-    "p50": 5.0,
-    "p75": 6.5,
-    "p90": 8.5,
-    "p95": 9.2,
-    "gini": 0.19,
-    "count": 3165000,
-    "null_count": 32000,
-    "comment": "Capacity component score"
-  },
-  "appetite_score": {
-    "mean": 5.2,
-    "median": 5.0,
-    "std": 1.8,
-    "min": 1.0,
-    "max": 10.0,
-    "p25": 4.0,
-    "p50": 5.0,
-    "p75": 6.5,
-    "p90": 8.0,
-    "p95": 9.1,
-    "gini": 0.18,
-    "count": 3165000,
-    "null_count": 28000,
-    "comment": "Appetite component score"
-  },
-  "environment_score": {
-    "mean": 5.0,
-    "median": 5.0,
+  "score_adequacy": {
+    "mean": 5.4,
+    "median": 5.5,
     "std": 1.6,
     "min": 1.0,
     "max": 10.0,
+    "p10": 3.0,
     "p25": 4.0,
-    "p50": 5.0,
-    "p75": 6.0,
-    "p90": 8.0,
-    "p95": 9.0,
-    "gini": 0.16,
-    "count": 3165000,
-    "null_count": 25000,
-    "comment": "Environment component score"
+    "p50": 5.5,
+    "p75": 6.5,
+    "p90": 7.5,
+    "p95": 8.5,
+    "gini": 0.19,
+    "count": 500,
+    "null_count": 0,
+    "description": "Adequacy component (40% weight) - data quality, claims, certification",
+    "weight": 0.40
   },
-  "metadata": {
-    "baseline_date": "2026-07-28",
-    "baseline_source": "MagMutual physicians - development cohort",
-    "baseline_records": 3165000,
-    "scoring_version": "1.0.0",
-    "notes": "Update this file with each major rescoring event"
+  "score_capacity": {
+    "mean": 5.6,
+    "median": 5.5,
+    "std": 1.4,
+    "min": 1.0,
+    "max": 10.0,
+    "p10": 3.5,
+    "p25": 4.5,
+    "p50": 5.5,
+    "p75": 6.5,
+    "p90": 7.5,
+    "p95": 8.5,
+    "gini": 0.21,
+    "count": 500,
+    "null_count": 0,
+    "description": "Capacity component (25% weight) - experience, volume, education",
+    "weight": 0.25
+  },
+  "score_appetite": {
+    "mean": 5.5,
+    "median": 5.5,
+    "std": 1.5,
+    "min": 1.0,
+    "max": 10.0,
+    "p10": 3.0,
+    "p25": 4.5,
+    "p50": 5.5,
+    "p75": 6.5,
+    "p90": 7.5,
+    "p95": 8.5,
+    "gini": 0.20,
+    "count": 500,
+    "null_count": 0,
+    "description": "Appetite component (25% weight) - specialty risk, complexity, peer comparison",
+    "weight": 0.25
+  },
+  "score_environment": {
+    "mean": 5.3,
+    "median": 5.5,
+    "std": 1.4,
+    "min": 1.0,
+    "max": 10.0,
+    "p10": 3.0,
+    "p25": 4.5,
+    "p50": 5.5,
+    "p75": 6.5,
+    "p90": 7.5,
+    "p95": 8.5,
+    "gini": 0.18,
+    "count": 500,
+    "null_count": 0,
+    "description": "Environment component (10% weight) - geographic, compliance, practice environment",
+    "weight": 0.10
+  },
+  "risk_distribution": {
+    "low_risk_1_to_4": {
+      "count": 100,
+      "percentage": 20.0,
+      "description": "Low risk physicians (scores 1-4)"
+    },
+    "medium_risk_4_to_7": {
+      "count": 300,
+      "percentage": 60.0,
+      "description": "Medium risk physicians (scores 4-7)"
+    },
+    "high_risk_7_to_10": {
+      "count": 100,
+      "percentage": 20.0,
+      "description": "High risk physicians (scores 7-10)"
+    }
+  },
+  "drift_detection_baseline": {
+    "psi_threshold": 0.25,
+    "warning_threshold": 0.10,
+    "description": "Use PSI to compare new population (e.g., DHC) to this baseline",
+    "interpretation": {
+      "psi_less_than_0_10": "No significant change - safe to use same bins",
+      "psi_0_10_to_0_25": "Small change - monitor closely",
+      "psi_greater_than_0_25": "Significant change - recommend recalibrating bins"
+    }
+  },
+  "binning_configuration": {
+    "method": "equal_frequency",
+    "n_bins": 5,
+    "description": "Quintile binning used for all 23 KPI variables",
+    "baseline_bins_file": "models/binning_v20260728/thresholds.json"
   }
 }

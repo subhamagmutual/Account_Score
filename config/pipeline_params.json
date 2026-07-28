@@ -1,75 +1,124 @@
 {
+    "version": "1.0.0",
+    "created_date": "2026-07-28",
+    "description": "PAS Pipeline Parameters - Step 1, 2, 3 Implementation",
     "data": {
-        "input_path": "C:/Box/Box/BOX Subhashree Singh/Business/Modeling/data/regression/input/2025_refresh/modeling_data/2025_mr_dhc_merged_features.csv",
-        "output_dir": "C:/Box/Box/BOX Subhashree Singh/Business/PAS",
-        "variable_definitions_path": "C:/Box/Box/BOX Subhashree Singh/Business/Modeling/data/regression/input/2025_refresh/reference/2025_mr_dhc_merged_features_variable_definitions.xlsx"
+        "base_output_dir": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data",
+        "magmutual_input_path": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data/input/magmutual_scored_data.csv",
+        "dhc_input_path": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data/input/dhc_raw_data.csv",
+        "output_dir": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data/output/",
+        "monitoring_output": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data/monitoring/",
+        "models_dir": "models/",
+        "logs_dir": "C:/Box/Box/BOX Subhashree Singh/Business/PAS/data/logs/pipeline/"
     },
     "filters": {
-        "min_written_premium": 0,
-        "min_bce": 0,
+        "min_annual_claims": 1,
+        "max_years_in_specialty": 60,
         "coverage_year_min": 2017,
         "coverage_year_max": 2023,
-        "policy_year_min": 2017,
-        "premium_col": "WRTN_PREM_AMT_ITD_BURNED_CLASS_OL",
-        "bce_col": "BCE_ST",
-        "coverage_date_col": "COVEFF_DATE",
-        "policy_date_col": "POLEFF_DATE"
+        "include_states": [],
+        "include_specialties": []
     },
     "scoring": {
-        "sub_score_min": 1,
-        "sub_score_max": 30,
-        "composite_min": 1,
-        "composite_max": 10,
-        "portfolio_avg_score": 5,
-        "missing_value_sentinel": -1
-    },
-    "credibility": {
-        "full_credibility_premium": 50000,
-        "complement_score": 5,
-        "apply_to": [
-            "total_loss_cost",
-            "indemnity_loss_cost",
-            "expense_loss_cost",
-            "total_frequency",
-            "indemnity_frequency",
-            "total_severity",
-            "actual_loss_ratio"
-        ]
-    },
-    "binning": {
-        "default_method": "quantile",
-        "n_bins": 30,
-        "methods_by_variable": {
-            "total_loss_cost": "equal_width",
-            "indemnity_loss_cost": "equal_width",
-            "expense_loss_cost": "equal_width",
-            "total_frequency": "quantile",
-            "indemnity_frequency": "quantile",
-            "total_severity": "log_scale",
-            "actual_loss_ratio": "equal_width",
-            "loss_free_years": "quantile",
-            "limits_to_premium": "log_scale",
-            "per_occurrence_limit": "categorical",
-            "aggregate_limit": "categorical",
-            "risk_count": "quantile",
-            "specialty_risk_tier": "categorical",
-            "state_venue_risk": "categorical",
-            "years_since_graduation": "u_shaped",
-            "rvu_ratio": "quantile",
-            "tenure_with_carrier": "quantile",
-            "hospital_rating": "categorical",
-            "practice_size": "log_scale",
-            "income_inequality": "equal_width",
-            "population_density": "quantile",
-            "violent_crime_rate": "quantile",
-            "pct_uninsured": "equal_width"
+        "component_min": 1.0,
+        "component_max": 10.0,
+        "composite_min": 1.0,
+        "composite_max": 10.0,
+        "portfolio_avg_score": 5.5,
+        "missing_value_sentinel": -1,
+        "component_weights": {
+            "adequacy": 0.40,
+            "capacity": 0.25,
+            "appetite": 0.25,
+            "environment": 0.10
         }
     },
+    "credibility": {
+        "apply_data_completeness": true,
+        "min_data_completeness_pct": 60,
+        "credibility_z_factor_apply": true,
+        "description": "Weight physicians based on data quality/completeness"
+    },
+    "binning": {
+        "default_method": "equal_frequency",
+        "n_bins": 5,
+        "description": "Quintile binning - equal frequency (20% each)",
+        "methods_by_variable": {
+            "kpi_specialty_volume": "equal_frequency",
+            "kpi_state_volume": "equal_frequency",
+            "kpi_years_in_specialty": "equal_frequency",
+            "kpi_annual_claims_rate": "equal_frequency",
+            "kpi_avg_claim_amount": "equal_frequency",
+            "kpi_loss_frequency": "equal_frequency",
+            "kpi_loss_severity": "equal_frequency",
+            "kpi_board_certified": "categorical",
+            "kpi_litigation_history": "categorical",
+            "kpi_geographic_concentration": "equal_frequency",
+            "kpi_procedure_complexity": "equal_frequency",
+            "kpi_patient_risk": "equal_frequency",
+            "kpi_complication_rate": "equal_frequency",
+            "kpi_peer_volume_ratio": "equal_frequency",
+            "kpi_specialty_loss_ratio": "equal_frequency",
+            "kpi_state_risk_adjustment": "equal_frequency",
+            "kpi_experience_adjustment": "equal_frequency",
+            "kpi_licensure_status": "categorical",
+            "kpi_education_score": "equal_frequency",
+            "kpi_facility_quality": "equal_frequency",
+            "kpi_compliance_score": "equal_frequency",
+            "kpi_screening_score": "equal_frequency",
+            "kpi_additional_risk": "equal_frequency"
+        }
+    },
+    "kpi_variables": {
+        "count": 23,
+        "description": "23 KPI variables calculated from raw data",
+        "list": [
+            "kpi_specialty_volume",
+            "kpi_state_volume",
+            "kpi_years_in_specialty",
+            "kpi_annual_claims_rate",
+            "kpi_avg_claim_amount",
+            "kpi_loss_frequency",
+            "kpi_loss_severity",
+            "kpi_board_certified",
+            "kpi_litigation_history",
+            "kpi_geographic_concentration",
+            "kpi_procedure_complexity",
+            "kpi_patient_risk",
+            "kpi_complication_rate",
+            "kpi_peer_volume_ratio",
+            "kpi_specialty_loss_ratio",
+            "kpi_state_risk_adjustment",
+            "kpi_experience_adjustment",
+            "kpi_licensure_status",
+            "kpi_education_score",
+            "kpi_facility_quality",
+            "kpi_compliance_score",
+            "kpi_screening_score",
+            "kpi_additional_risk"
+        ]
+    },
     "identifiers": {
-        "physician_id": "NPI",
-        "policy_number": "POL_NUM_ID",
-        "coverage_year": "COVEFF_DATE",
-        "specialty": "OL_RISK_SPECIALTY_DESC",
-        "state": "ST"
+        "physician_id": "physician_id",
+        "npi": "npi",
+        "specialty": "specialty",
+        "state": "state",
+        "years_in_specialty": "years_in_specialty"
+    },
+    "validation": {
+        "input_validation": true,
+        "output_validation": true,
+        "max_null_percentage": 5.0,
+        "score_range_check": [1.0, 10.0]
+    },
+    "monitoring": {
+        "psi_threshold": 0.25,
+        "distribution_shift_alert_pct": 5.0,
+        "max_null_pct_allowed": 5.0
+    },
+    "deployment": {
+        "enable_version_tracking": true,
+        "enable_rollback": true,
+        "pre_deployment_gates": 5
     }
 }
